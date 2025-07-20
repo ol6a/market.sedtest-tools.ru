@@ -6,8 +6,9 @@ export function generateRandomEmail(): string {
         const randomIndex = Math.floor(Math.random() * characters.length);
         username += characters[randomIndex];
     }
-    return username + '@example.com';
+    return username + '@ex.com';
 }
+
 
 export function generateRandomString(length: number): string {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -39,3 +40,7 @@ export function generateValidPhone(): string {
     }
     return phone;
 }
+
+ export function generateRandomPassword(): string {
+        return `Password_${Date.now()}`;
+    }

@@ -9,8 +9,9 @@ test.beforeEach(async ({ page }) => {
   await page.getByRole('textbox', { name: 'Пароль' }).click();
   await page.getByRole('textbox', { name: 'Пароль' }).fill('1234567');
   await page.locator('div').filter({ hasText: /^ВходПочтаПочтаПарольПарольВойти Еще не зарегистрированы \?$/ }).getByRole('button').click();
-  await expect(page.getByText('Кабинет')).toBeVisible();
   await page.getByText('Кабинет').click();
+  await expect(page.getByText('Кабинет')).toBeVisible();
+  
 });
 
 test.describe('Редактирование кабинета', () => {

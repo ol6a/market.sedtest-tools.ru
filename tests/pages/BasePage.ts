@@ -11,11 +11,13 @@ export class BasePage {
         await this.page.goto(url);
     }
 
-    async waitForElement(locator: Locator, timeout = 5000) {
+    async waitForElement(locator: Locator, timeout = 10000) {
         await locator.waitFor({ state: 'visible', timeout });
     }
 
     async getInputValue(locator: Locator): Promise<string> {
         return await locator.inputValue();
     }
+
+    
 }

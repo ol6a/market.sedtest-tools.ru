@@ -1,59 +1,60 @@
-import { test, expect } from '@playwright/test';
-import { AuthPage } from '../pages/AuthPage';
-import { AccountPage } from '../pages/AccountPage';
+//import { test, expect } from '@playwright/test';
+//import { AuthPage } from '../pages/AuthPage';
+//import { AccountPage } from '../pages/AccountPage';
+//import { generateRandomString, generateValidPhone } from '../utils/helpers';
 
-test.describe.configure({ mode: 'serial' });
+import { test, expect } from '../fixtures';
+import { generateRandomString, generateValidPhone } from '../utils/helpers';
 
-test.beforeEach(async ({ page }) => {
-    const authPage = new AuthPage(page);
-    await authPage.navigateTo('http://market.sedtest-tools.ru/login');
-    await authPage.login('rm@ex.ru', '1234567');
-    
-    const accountPage = new AccountPage(page);
-    await accountPage.navigateTo('http://market.sedtest-tools.ru/account');
-    await accountPage.waitForElement(accountPage.nameInput);
-});
+test.describe('Кабинет, его редаактирование и элементы кабинета', () => {
+    let newName: string;
+    let newSurname: string;
 
-test.describe('Редактирование кабинета', () => {
-    test('1. Проверка отображения основных элементов', async ({ page }) => {
-        const accountPage = new AccountPage(page);
+    test.beforeEach(async ({ page, authPage, testUser }) => {
+        newName = generateRandomString(11);
+        newSurname = generateRandomString(11);
         
+        await authPage.login(testUser.email, testUser.password);
+        await page.getByText('Кабинет').click();
+        await expect(page.getByText('Кабинет')).toBeVisible();
+    });
+
+    test('1. Проверка отображения основных элементов', async ({ accountPage }) => {
         await expect(accountPage.myAdsHeader).toBeVisible();
         await expect(accountPage.cabinetHeader).toBeVisible();
         await expect(accountPage.uploadPhotoButton).toBeVisible();
         await expect(accountPage.saveButton).toBeVisible();
         await expect(accountPage.logoutButton).toBeVisible();
+        await expect(accountPage.nameInput).toBeVisible();
+        await expect(accountPage.surnameInput).toBeVisible();
+        await expect(accountPage.phoneInput).toBeVisible();
+        await expect(accountPage.emailInput).toBeVisible();
     });
 
-    test('2. Редактирование имени', async ({ page }) => {
-        const accountPage = new AccountPage(page);
-        const newName = 'НовоеИмя';
+    test('2. Редактирование имени', async ({ accountPage }) => {
         await accountPage.updateProfile({ name: newName });
-        
         await expect(accountPage.successMessage).toContainText('Информация сохранена');
         await accountPage.expectProfileData({ name: newName });
+        await expect(accountPage.saveButton).toBeVisible();
     });
 
-    test('3. Редактирование фамилии', async ({ page }) => {
-        const accountPage = new AccountPage(page);
-        const newSurname = 'НоваяФамилия';
+    test('3. Редактирование фамилии', async ({ accountPage }) => {
         await accountPage.updateProfile({ surname: newSurname });
-        
-        await expect(accountPage.successMessage).toContainText('Информация сохранена');
+        await expect(accountPage.successMessage).toHaveText('Информация сохранена');
         await accountPage.expectProfileData({ surname: newSurname });
+        await expect(accountPage.saveButton).toBeVisible();
     });
 
-    test('4. Редактирование телефона', async ({ page }) => {
-        const accountPage = new AccountPage(page);
-        const newPhone = '+ 7 (999) 999-99-99';
+    test('4. Редактирование телефона', async ({ accountPage }) => {
+        const newPhone = generateValidPhone();
         await accountPage.updateProfile({ phone: newPhone });
         
-        await expect(accountPage.successMessage).toContainText('Информация сохранена');
+        await expect(accountPage.successMessage).toHaveText('Информация сохранена');
         await accountPage.expectProfileData({ phone: newPhone });
+        await expect(accountPage.saveButton).toBeVisible();
     });
 
-    test('5. Выход из аккаунта', async ({ page }) => {
-        const accountPage = new AccountPage(page);
+    test('5. Выход из аккаунта', async ({ accountPage, page }) => {
         await accountPage.logout();
         
         await expect(page).toHaveURL('http://market.sedtest-tools.ru/login');

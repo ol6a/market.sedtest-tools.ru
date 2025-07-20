@@ -50,6 +50,7 @@ export class AccountPage extends BasePage {
     }
 
     async logout() {
+        await this.cabinetHeader.click();
         await this.logoutButton.click();
         await this.page.waitForURL('**/login');
     }
