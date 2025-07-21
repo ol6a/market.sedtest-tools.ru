@@ -20,18 +20,18 @@ test.describe('Авторизация', () => {
         
         await authPage.login('1', '1234567');
         
-        await expect(authPage.emailError).toHaveText('Неверный формат почты');
         await expect(authPage.helperTextElement1).toHaveText('Неверный формат почты');
         await expect(page).toHaveURL(LoginUrl);
+        await expect(authPage.loginButton).toBeVisible();
     });
 
-    test('3. Авторизация с несуществующей почтой', async ({ page, authPage }) => {
+    test('3. Авторизация с несуществующей почтой, но верным форматом', async ({ page, authPage }) => {
         
         await authPage.login('nonexistent@example.com', '1234567');
         
         await expect(authPage.errorMessage).toHaveText('Неправильный логин или пароль');
-        await expect(page).toHaveURL(LoginUrl);
         await expect(authPage.loginButton).toBeVisible();
+        await expect(page).toHaveURL(LoginUrl);
     });
 
     test('4. Авторизация с незаполненными данными', async ({ page, authPage }) => {

@@ -6,7 +6,8 @@ import { generateRandomString, generateValidPhone } from '../utils/helpers';
 test.describe('Кабинет, его редаактирование и элементы кабинета', () => {
     let newName: string;
     let newSurname: string;
-
+    newName = generateRandomString(11);
+    newSurname = generateRandomString(11);
 
     test('1. Проверка отображения основных элементов', async ({ accountPage,  authPage, testUser }) => {
         
@@ -14,16 +15,15 @@ test.describe('Кабинет, его редаактирование и элем
         await expect(accountPage.cabinetHeader).toBeVisible();
         await expect(accountPage.uploadPhotoButton).toBeVisible();
         await expect(accountPage.saveButton).toBeVisible();
-        await expect(accountPage.logoutButton).toBeVisible();
         await expect(accountPage.nameInput).toBeVisible();
         await expect(accountPage.surnameInput).toBeVisible();
         await expect(accountPage.phoneInput).toBeVisible();
         await expect(accountPage.emailInput).toBeVisible();
+        await expect(accountPage.logoutButton).toBeVisible();
     });
 
     test('2. Редактирование имени', async ({ accountPage }) => {
-        newName = generateRandomString(11);
-        newSurname = generateRandomString(11);
+       
         await accountPage.updateProfile({ name: newName });
         await expect(accountPage.successMessage).toContainText('Информация сохранена');
         await accountPage.expectProfileData({ name: newName });

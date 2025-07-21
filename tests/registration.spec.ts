@@ -20,6 +20,7 @@ test.describe('Регистрация', () => {
         
         await expect(page).toHaveURL(AccountUrl);
         await expect(page.getByText('Кабинет')).toBeVisible();
+        await expect(page.getByText('Мои объявления')).toBeVisible();
     });
 
 
