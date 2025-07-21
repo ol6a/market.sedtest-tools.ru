@@ -1,4 +1,4 @@
-import { test, expect, LoginUrl, AccountUrl } from '../fixtures';
+import { test, expect, LoginUrl, AccountUrl } from '../fixtures.ts';
 import { generateRandomEmail, generateRandomString, generateValidPhone } from '../utils/helpers';
 
 

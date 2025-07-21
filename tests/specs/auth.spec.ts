@@ -1,26 +1,13 @@
 import { AuthPage } from '../pages/AuthPage';
-import { test, expect, LoginUrl, BaseUrl, AccountUrl} from '../fixtures';
+import { test, expect, LoginUrl, BaseUrl, AccountUrl} from '../fixtures.ts';
 
 
 
 //test.describe.configure({ mode: 'serial' });
 
-test.beforeEach(async ({ page }) => {
-    
-    const authPage = new AuthPage(page);
-    
-    // Вход на страницу авторизации
-    await authPage.navigateTo(BaseUrl);
-    await authPage.loginHeader.click();
-    await expect(page.getByText('Вход')).toBeVisible();
-
-});
-
 test.describe('Авторизация', () => {
     test('1. Авторизация с корректными данными', async ({ page, authPage, testUser }) => {
-         // Добавляем проверку, что мы на странице логина
-        await expect(page.getByText('Вход')).toBeVisible();
-        
+       
         // Выполняем вход
         await authPage.login(testUser.email, testUser.password);
         

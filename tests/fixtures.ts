@@ -1,4 +1,4 @@
-import { test as base } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 import { AuthPage } from './pages/AuthPage';
 import { RegistrationPage } from './pages/RegistrationPage';
 import { AccountPage } from './pages/AccountPage';
@@ -13,19 +13,39 @@ export const LoginUrl = 'http://market.sedtest-tools.ru/login'; // Экспор�
 export const BaseUrl = "http://market.sedtest-tools.ru/";
 export const AccountUrl = "http://market.sedtest-tools.ru/account";
 
-export const test = base.extend<TestFixtures>({
+//export const test = base.extend<TestFixtures>({
+   // authPage: async ({ page }, use) => {
+    //    const authPage = new AuthPage(page);
+   //     await use(authPage);
+  //  },
+    
+   export const test = base.extend<{
+    authPage: AuthPage;
+    registrationPage: RegistrationPage;
+    accountPage: AccountPage;
+    testUser: { email: string; password: string };
+}>({
     authPage: async ({ page }, use) => {
         const authPage = new AuthPage(page);
+        await authPage.navigateTo(BaseUrl);
+        await authPage.loginHeader.click();
+        await expect(page.getByText('Вход')).toBeVisible();
         await use(authPage);
     },
 
-    registrationPage: async ({ page }, use) => {
+    registrationPage: async ({ page, authPage }, use) => {
         const registrationPage = new RegistrationPage(page);
+        await authPage.navigateTo(LoginUrl);
+        await authPage.navigateToRegistration();
+        await expect(page.getByRole('button', { name: 'Зарегестрироватся' })).toBeVisible();
         await use(registrationPage);
     },
 
-    accountPage: async ({ page }, use) => {
+    accountPage: async ({ page, authPage, testUser  }, use) => {
         const accountPage = new AccountPage(page);
+        await authPage.login(testUser.email, testUser.password);
+        await page.getByText('Кабинет').click();
+        await expect(page.getByText('Кабинет')).toBeVisible();
         await use(accountPage);
     },
 

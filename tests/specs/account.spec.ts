@@ -1,5 +1,5 @@
 
-import { test, expect, LoginUrl } from '../fixtures';
+import { test, expect, LoginUrl } from '../fixtures.ts';
 import { generateRandomString, generateValidPhone } from '../utils/helpers';
 
 
@@ -7,16 +7,9 @@ test.describe('Кабинет, его редаактирование и элем
     let newName: string;
     let newSurname: string;
 
-    test.beforeEach(async ({ page, authPage, testUser }) => {
-        newName = generateRandomString(11);
-        newSurname = generateRandomString(11);
-        
-        await authPage.login(testUser.email, testUser.password);
-        await page.getByText('Кабинет').click();
-        await expect(page.getByText('Кабинет')).toBeVisible();
-    });
 
-    test('1. Проверка отображения основных элементов', async ({ accountPage }) => {
+    test('1. Проверка отображения основных элементов', async ({ accountPage,  authPage, testUser }) => {
+        
         await expect(accountPage.myAdsHeader).toBeVisible();
         await expect(accountPage.cabinetHeader).toBeVisible();
         await expect(accountPage.uploadPhotoButton).toBeVisible();
@@ -29,6 +22,8 @@ test.describe('Кабинет, его редаактирование и элем
     });
 
     test('2. Редактирование имени', async ({ accountPage }) => {
+        newName = generateRandomString(11);
+        newSurname = generateRandomString(11);
         await accountPage.updateProfile({ name: newName });
         await expect(accountPage.successMessage).toContainText('Информация сохранена');
         await accountPage.expectProfileData({ name: newName });
