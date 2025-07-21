@@ -1,7 +1,7 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { AccountPage } from './AccountPage';
-import { generateRandomEmail, generateRandomString, generateValidPhone } from '../utils/helpers';
+//import { generateRandomEmail, generateRandomString, generateValidPhone } from '../utils/helpers';
 
 const AccountUrl = "http://market.sedtest-tools.ru/account";
 const LoginUrl = "http://market.sedtest-tools.ru/login";

@@ -1,5 +1,5 @@
 
-import { test, expect, LoginUrl } from '../fixtures.ts';
+import { test, expect, LoginUrl } from '../fixtures/fixtures.ts';
 import { generateRandomString, generateValidPhone } from '../utils/helpers';
 
 

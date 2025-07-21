@@ -1,5 +1,5 @@
 import { AuthPage } from '../pages/AuthPage';
-import { test, expect, LoginUrl, BaseUrl, AccountUrl} from '../fixtures.ts';
+import { test, expect, LoginUrl, BaseUrl, AccountUrl} from '../fixtures/fixtures.ts';
 
 
 

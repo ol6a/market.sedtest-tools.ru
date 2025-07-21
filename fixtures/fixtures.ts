@@ -1,7 +1,7 @@
 import { test as base, expect } from '@playwright/test';
-import { AuthPage } from './pages/AuthPage';
-import { RegistrationPage } from './pages/RegistrationPage';
-import { AccountPage } from './pages/AccountPage';
+import { AuthPage } from '../pages/AuthPage';
+import { RegistrationPage } from '../pages/RegistrationPage';
+import { AccountPage } from '../pages/AccountPage';
 
 type TestFixtures = {
     authPage: AuthPage;
