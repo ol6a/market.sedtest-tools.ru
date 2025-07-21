@@ -1,7 +1,5 @@
 import { AuthPage } from '../pages/AuthPage';
-import { test, expect, LoginUrl, BaseUrl, AccountUrl} from '../fixtures/fixtures.ts';
-
-
+import { test, expect, LoginUrl, AccountUrl} from '../fixtures/index.ts';
 
 //test.describe.configure({ mode: 'serial' });
 
