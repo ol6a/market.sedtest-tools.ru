@@ -109,5 +109,5 @@ export class RegistrationPage extends BasePage {
 }
 
      
-
+}
 
