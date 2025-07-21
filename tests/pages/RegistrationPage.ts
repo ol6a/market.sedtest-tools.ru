@@ -3,6 +3,9 @@ import { BasePage } from './BasePage';
 import { AccountPage } from './AccountPage';
 import { generateRandomEmail, generateRandomString, generateValidPhone } from '../utils/helpers';
 
+const AccountUrl = "http://market.sedtest-tools.ru/account";
+const LoginUrl = "http://market.sedtest-tools.ru/login";
+
 
 export class RegistrationPage extends BasePage {
     readonly emailInput: Locator;
@@ -97,12 +100,12 @@ export class RegistrationPage extends BasePage {
     await this.phoneInput.fill(phone);
     
     await this.registerButton.click();
-    await expect(this.page).toHaveURL('http://market.sedtest-tools.ru/account');
+    await expect(this.page).toHaveURL(AccountUrl);
 
     // Создаем экземпляр AccountPage для выхода
     const accountPage = new AccountPage(this.page);
     await accountPage.logout();
-    await expect(this.page).toHaveURL('http://market.sedtest-tools.ru/login');
+    await expect(this.page).toHaveURL(LoginUrl);
 
     // Возвращаем только email и пароль для использования в авторизации
     return { email, password };

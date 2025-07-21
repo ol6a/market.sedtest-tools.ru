@@ -1,11 +1,9 @@
 import { AuthPage } from '../pages/AuthPage';
-import { test, expect } from '../fixtures';
+import { test, expect, LoginUrl, BaseUrl, AccountUrl} from '../fixtures';
+
 
 
 //test.describe.configure({ mode: 'serial' });
-const BaseUrl = "http://market.sedtest-tools.ru/";
-const AccountUrl = "http://market.sedtest-tools.ru/account";
-const LoginUrl = "http://market.sedtest-tools.ru/login";
 
 test.beforeEach(async ({ page }) => {
     

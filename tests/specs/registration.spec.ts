@@ -1,8 +1,6 @@
-import { test, expect } from '../fixtures';
+import { test, expect, LoginUrl, AccountUrl } from '../fixtures';
 import { generateRandomEmail, generateRandomString, generateValidPhone } from '../utils/helpers';
 
-const AccountUrl = "http://market.sedtest-tools.ru/account";
-const LoginUrl = "http://market.sedtest-tools.ru/login";
 
 test.describe('Регистрация', () => {
     test.beforeEach(async ({ page, authPage }) => {

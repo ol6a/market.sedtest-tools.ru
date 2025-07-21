@@ -9,6 +9,9 @@ type TestFixtures = {
     accountPage: AccountPage;
     testUser: { email: string; password: string };
 };
+export const LoginUrl = 'http://market.sedtest-tools.ru/login'; // Экспортируем URL отдельно
+export const BaseUrl = "http://market.sedtest-tools.ru/";
+export const AccountUrl = "http://market.sedtest-tools.ru/account";
 
 export const test = base.extend<TestFixtures>({
     authPage: async ({ page }, use) => {
@@ -28,7 +31,7 @@ export const test = base.extend<TestFixtures>({
 
     testUser: async ({ page, registrationPage }, use) => {
         // Регистрируем нового пользователя
-        await page.goto('http://market.sedtest-tools.ru/login');
+        await page.goto(LoginUrl);
         await page.getByText('Еще не зарегистрированы ?').click();
         //await expect(page.getByText('Регистрация')).toBeVisible();
         const { email, password } = await registrationPage.register2();

@@ -1,8 +1,7 @@
 
-import { test, expect } from '../fixtures';
+import { test, expect, LoginUrl } from '../fixtures';
 import { generateRandomString, generateValidPhone } from '../utils/helpers';
 
-const LoginUrl = "http://market.sedtest-tools.ru/login";
 
 test.describe('Кабинет, его редаактирование и элементы кабинета', () => {
     let newName: string;
