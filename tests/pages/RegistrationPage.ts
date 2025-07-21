@@ -108,39 +108,6 @@ export class RegistrationPage extends BasePage {
     return { email, password };
 }
 
-     async register3(userData?: {
-        email?: string;
-        password?: string;
-        name?: string;
-        surname?: string;
-        phone?: string;
-    }): Promise<{ email: string; password: string }> {
-        // Генерируем данные, если они не предоставлены
-        const email = userData?.email || this.generateRandomEmail();
-        const password = userData?.password || this.generateRandomPassword();
-        const name = userData?.name || this.generateRandomName();
-        const surname = userData?.surname || this.generateRandomSurname();
-        const phone = userData?.phone || this.generateValidPhone();
-        await this.navigateTo("http://market.sedtest-tools.ru/login");
-        await expect(this.page).toHaveURL('http://market.sedtest-tools.ru/login');
-        await this.page.getByText('Еще не зарегистрированы ?').click();
-        await this.emailInput.fill(email);
-        await this.passwordInput.fill(password);
-        await this.nameInput.fill(name);
-        await this.surnameInput.fill(surname);
-        await this.phoneInput.fill(phone);
-        await expect(this.page.getByRole('button', { name: 'Зарегестрироватся' })).toBeVisible();
-        await expect(this.page).toHaveURL('http://market.sedtest-tools.ru/login');
-        await this.registerButton.click();
-        await expect(this.page).toHaveURL('http://market.sedtest-tools.ru/account');
-
-        // Возвращаем только email и пароль для использования в авторизации
-        return { email, password };
-    }
-}
-
-
-    
-   // export default RegistrationPage;
+     
 
 

@@ -1,45 +1,3 @@
-//import { test, expect } from '@playwright/test';
-//import { AuthPage } from '../pages/AuthPage';
-//import { RegistrationPage } from '../pages/RegistrationPage';
-//import { generateRandomEmail, generateRandomString, generateValidPhone, generateRandomPassword } from '../utils/helpers';
-
-//test.describe.configure({ mode: 'serial' });
-
-//let testEmail: string;
-//let testName: string;
-//let testSurname: string;
-
-//test.beforeEach(async ({ page }) => {
-    //testEmail = generateRandomEmail();
-   // testName = generateRandomString(10);
-   // testSurname = generateRandomString(10);
-
-   // const authPage = new AuthPage(page);
-  //  await authPage.navigateTo(LoginUrl);
-  //  await authPage.navigateToRegistration();
-  //  await expect(page.getByRole('button', { name: 'Зарегестрироватся' })).toBeVisible();
- // await expect(page.locator('#root')).toContainText('Зарегестрироватся');
-    
-//});
-
-//test.describe('Регистрация', () => {
-
-  // test('1. Регистрация с валидными данными', async ({ page }) => {
-     //   const registrationPage = new RegistrationPage(page);
-
-      //  await registrationPage.register({
-       //     email: testEmail,
-       //     password: generateRandomPassword(),
-       //     name: testName,
-      //      surname: testSurname,
-       //     phone: generateValidPhone()
-       // });
-        
-       // await expect(page).toHaveURL(AccountUrl);
-      //  await expect(page.getByText('Кабинет')).toBeVisible();
-     //   await expect(page.getByText('Мои объявления')).toBeVisible();
-   // });
-
 import { test, expect } from '../fixtures';
 import { generateRandomEmail, generateRandomString, generateValidPhone } from '../utils/helpers';
 
@@ -48,7 +6,7 @@ const LoginUrl = "http://market.sedtest-tools.ru/login";
 
 test.describe('Регистрация', () => {
     test.beforeEach(async ({ page, authPage }) => {
-        await authPage.navigateTo('http://market.sedtest-tools.ru/login');
+        await authPage.navigateTo(LoginUrl);
         await authPage.navigateToRegistration();
         await expect(page.getByRole('button', { name: 'Зарегестрироватся' })).toBeVisible();
     });
@@ -62,7 +20,7 @@ test.describe('Регистрация', () => {
             phone: generateValidPhone()
         });
         
-        await expect(page).toHaveURL('http://market.sedtest-tools.ru/account');
+        await expect(page).toHaveURL(AccountUrl);
         await expect(page.getByText('Кабинет')).toBeVisible();
     });
 
@@ -93,7 +51,7 @@ test.describe('Регистрация', () => {
     });
 
     test('4. Регистрация с неверным форматом почты', async ({ registrationPage, page }) => {
-        //const registrationPage = new RegistrationPage(page);
+   
         await registrationPage.register({
             email: 'invalidemail',
             password: '1234567',
@@ -108,7 +66,7 @@ test.describe('Регистрация', () => {
     });
 
     test('5. Регистрация с неверным форматом телефона', async ({ registrationPage, page }) => {
-        //const registrationPage = new RegistrationPage(page);
+  
         await registrationPage.register({
             email: generateRandomEmail(),
             password: '1234567',

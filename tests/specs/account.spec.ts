@@ -1,10 +1,8 @@
-//import { test, expect } from '@playwright/test';
-//import { AuthPage } from '../pages/AuthPage';
-//import { AccountPage } from '../pages/AccountPage';
-//import { generateRandomString, generateValidPhone } from '../utils/helpers';
 
 import { test, expect } from '../fixtures';
 import { generateRandomString, generateValidPhone } from '../utils/helpers';
+
+const LoginUrl = "http://market.sedtest-tools.ru/login";
 
 test.describe('Кабинет, его редаактирование и элементы кабинета', () => {
     let newName: string;
@@ -57,7 +55,7 @@ test.describe('Кабинет, его редаактирование и элем
     test('5. Выход из аккаунта', async ({ accountPage, page }) => {
         await accountPage.logout();
         
-        await expect(page).toHaveURL('http://market.sedtest-tools.ru/login');
+        await expect(page).toHaveURL(LoginUrl);
         await expect(page.getByText('Вход')).toBeVisible();
         await expect(page.getByText('Еще не зарегистрированы ?')).toBeVisible();
     });
